@@ -7,18 +7,18 @@
 }
 
 body {
-  background-image: url("/img/jeremy-bishop-G9i_plbfDgk-unsplash.jpg");
+  background-image: url("/img/peter-gargiulo-cGNCepznaV8-unsplash.jpg");
   background-size: cover;
-  background-repeat: no-repeat;
+}
+
+.header {
+  margin: 0 auto;
   text-align: center;
 }
 
 .main {
   height: 500px;
   width: 600px;
-  display: flex;
   margin: 0 auto;
-  justify-content: center;
-  align-items: center;
   text-align: center;
 }
