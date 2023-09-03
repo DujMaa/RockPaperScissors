@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fca311;
+  letter-spacing: 5px;
+}
+
+body {
+  background-image: url("/img/jeremy-bishop-G9i_plbfDgk-unsplash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.main {
+  height: 500px;
+  width: 600px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
