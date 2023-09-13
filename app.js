@@ -5,15 +5,17 @@ let playerScore = 0;
 const rockBtn = document.querySelector("#rockBtn");
 const paperBtn = document.querySelector("#paperBtn");
 const scissorsBtn = document.querySelector("#scissorsBtn");
+const resetBtn = document.querySelector("#resetBtn");
 
 let scorePlayerDisp = document.querySelector(".scorePlayerDisp");
+let gameRes = document.querySelector(".gameRes");
 let scoreComputerDisp = document.querySelector(".scoreComputerDisp");
+const endgame = document.querySelector(".endgame");
+const overlay = document.querySelector(".overlay");
 
 function getComputerChoice() {
   return signs[Math.floor(Math.random() * 3)];
 }
-
-rockBtn.addEventListener("click", () => {});
 
 const btns = document.querySelectorAll("button");
 
@@ -22,50 +24,66 @@ btns.forEach((btn) => {
     let computerSelection = getComputerChoice();
     let playerSelection = e.target.innerText;
     console.log(playRound(playerSelection, computerSelection));
-    console.log(`${computerSelection} VS ${playerSelection}`);
+    updateScore();
+    winner();
   });
 });
+
+resetBtn.addEventListener("click", restartGame);
+
+function updateScore() {
+  scorePlayerDisp.innerText = playerScore;
+  scoreComputerDisp.innerText = computerScore;
+}
 
 function playRound(playerSelection, computerSelection) {
   if (playerSelection.toLowerCase() == "rock") {
     if (computerSelection == "paper") {
       computerScore++;
-      return `You Lose! Paper beats Rock`;
+      gameRes.innerText = `You Lose! Paper beats Rock`;
     } else if (computerSelection == "scissors") {
       playerScore++;
-      return `You Win! Rock beats Scissors`;
-    } else if (computerSelection == "rock") return `It is Draw!`;
+      gameRes.innerText = `You Win! Rock beats Scissors`;
+    } else if (computerSelection == "rock") gameRes.innerText = `It is Draw!`;
   } else if (playerSelection.toLowerCase() == "paper") {
-    if (computerSelection == "paper") return `It is Draw!`;
+    if (computerSelection == "paper") gameRes.innerText = `It is Draw!`;
     else if (computerSelection == "scissors") {
       computerScore++;
-      return `You Lose! Scissors beats Paper`;
+      gameRes.innerText = `You Lose! Scissors beats Paper`;
     } else if (computerSelection == "rock") {
       playerScore++;
-      return `You Win! Paper beats Rock`;
+      gameRes.innerText = `You Win! Paper beats Rock`;
     }
   } else if (playerSelection.toLowerCase() == "scissors") {
     if (computerSelection == "paper") {
       playerScore++;
-      return `You Win! Scissors beats Paper`;
-    } else if (computerSelection == "scissors") return `It is Draw!`;
+      gameRes.innerText = `You Win! Scissors beats Paper`;
+    } else if (computerSelection == "scissors")
+      gameRes.innerText = `It is Draw!`;
     else if (computerSelection == "rock") {
       computerScore++;
-      return "You Lose! Rock beats Scissors";
+      gameRes.innerText = "You Lose! Rock beats Scissors";
     }
   }
 }
 
-function game() {
-  // for(let i = 0; i < 5; i++){
-  //
-  //     playerSelection = prompt("Rock  Paper  Scissors")
-  //     console.log()
-  // }
-  if (playerScore > computerScore) {
-    console.log("YOU WON");
-  } else if (computerScore > playerScore) console.log("YOU LOST!");
-  else console.log("IT IS TIE");
+function winner() {
+  if (playerScore == 5) {
+    endgame.classList.add("active");
+    overlay.classList.add("active");
+    endgame.firstElementChild.innerText = "You won...";
+  } else if (computerScore === 5) {
+    endgame.classList.add("active");
+    overlay.classList.add("active");
+    endgame.firstElementChild.innerText = "You lost...";
+  }
 }
 
-game();
+function restartGame() {
+  gameRes.innerText = "";
+  playerScore = 0;
+  computerScore = 0;
+  updateScore();
+  endgame.classList.remove("active");
+  overlay.classList.remove("active");
+}
